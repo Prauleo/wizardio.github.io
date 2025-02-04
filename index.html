@@ -9,8 +9,12 @@
 <body>
   <div class="chat-container">
     <header class="chat-header">
-      <img src="images/wizardio.jpg" alt="Wizardio" class="header-avatar">
+      <img src="images/wizardio.png" alt="Wizardio" class="header-avatar">
       <h1>Chat con Wizardio</h1>
+      <!-- Botón para cambiar tema -->
+      <button class="toggle-mode-btn" onclick="toggleTheme()">Cambiar Tema</button>
+      <!-- Botón para borrar historial -->
+      <button class="clear-btn" onclick="clearHistory()">Borrar Historial</button>
     </header>
     <div id="messages" class="messages"></div>
     <div class="input-area">
