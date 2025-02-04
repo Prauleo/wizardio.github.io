@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mi Primer Sitio</title>
+    <title>Chat con Webhook</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>¡Hola Mundo! 🌍</h1>
-    <p>Este es mi primer sitio en GitHub Pages</p>
-    <button onclick="alert('¡Funciona!')">Haz clic</button>
+    <div class="chat-container">
+        <div id="messages" class="messages"></div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Escribe tu mensaje...">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+    <script src="chat.js"></script>
 </body>
-    <img src="images/12.png" width="200">
-    <link rel="stylesheet" href="style.css">
 </html>
