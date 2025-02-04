@@ -12,7 +12,7 @@ function displayMessages() {
 // Enviar a webhook
 async function sendToWebhook(message) {
     try {
-        const response = await fetch('TU_URL_DE_MAKE_WEBHOOK', {
+        const response = await fetch('https://hook.us1.make.com/43vq126gqt9cd77t23sw3dss1stcrqr9', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
