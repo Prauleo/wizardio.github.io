@@ -3,6 +3,11 @@
 // Cargar mensajes guardados en el localStorage (con sender)
 let messages = JSON.parse(localStorage.getItem('chat_messages')) || [];
 
+// Al iniciar, establecemos el tema preferido guardado en localStorage
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light-mode');
+}
+
 // Función para mostrar los mensajes en el contenedor
 function displayMessages() {
   const container = document.getElementById('messages');
@@ -75,6 +80,25 @@ function sendMessage() {
   }
 }
 
+// Función para borrar el historial del chat
+function clearHistory() {
+  if (confirm("¿Estás seguro de borrar todo el historial de mensajes?")) {
+    localStorage.removeItem('chat_messages');
+    messages = [];
+    displayMessages();
+  }
+}
+
+// Función para alternar entre Dark Mode y Light Mode
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  if (document.body.classList.contains('light-mode')) {
+    localStorage.setItem('theme', 'light');
+  } else {
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
 // Inicializar mostrando los mensajes guardados
 displayMessages();
 
@@ -82,4 +106,3 @@ displayMessages();
 document.getElementById('messageInput').addEventListener('keypress', (e) => {
   if (e.key === 'Enter') sendMessage();
 });
-
