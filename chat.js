@@ -3,12 +3,7 @@
 // Cargar mensajes guardados en el localStorage (con sender)
 let messages = JSON.parse(localStorage.getItem('chat_messages')) || [];
 
-// Al iniciar, establecemos el tema preferido guardado en localStorage
-if (localStorage.getItem('theme') === 'light') {
-  document.body.classList.add('light-mode');
-}
-
-// Función para mostrar los mensajes en el contenedor
+// Mostrar los mensajes en el contenedor
 function displayMessages() {
   const container = document.getElementById('messages');
   container.innerHTML = messages.map(msg => {
@@ -19,7 +14,7 @@ function displayMessages() {
           <div class="message-text">${msg.text}</div>
         </div>
       `;
-    } else { // sender === 'user'
+    } else {
       return `
         <div class="message-container user">
           <div class="message-text">${msg.text}</div>
@@ -30,29 +25,27 @@ function displayMessages() {
   container.scrollTop = container.scrollHeight; // Auto-scroll
 }
 
-// Función para enviar el mensaje al webhook de Make.com
+// Enviar el mensaje al webhook de Make.com
 async function sendToWebhook(message) {
   try {
-    const response = await fetch('https://hook.us1.make.com/43vq126gqt9cd77t23sw3dss1stcrqr9', {  // Reemplaza con la URL real de tu webhook
+    // Reemplaza esta URL con la que te da Make.com
+    const response = await fetch('https://hook.us1.make.com/43vq126gqt9cd77t23sw3dss1stcrqr9', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: message,
         timestamp: new Date().toISOString()
       })
     });
-    
+
     if (!response.ok) throw new Error('Error en el webhook');
     
-    // (Opcional) Procesamos la respuesta del webhook, si la hay
+    // Si el webhook responde algo, lo usamos como texto de Wizardio
     const data = await response.json();
     console.log('Respuesta del webhook:', data);
-    
-    // Simulamos la respuesta de Wizardio (o usa data.response si tu webhook la retorna)
+
+    // Mensaje de Wizardio (o lo que retorne tu webhook)
     const wizardResponse = data.response || 'Mensaje recibido por Wizardio';
-    // Guardar la respuesta de Wizardio
     messages.push({ text: wizardResponse, sender: 'wizardio' });
     localStorage.setItem('chat_messages', JSON.stringify(messages));
     displayMessages();
@@ -61,26 +54,23 @@ async function sendToWebhook(message) {
   }
 }
 
-// Función que se ejecuta al enviar un mensaje
+// Enviar un mensaje escrito por el usuario
 function sendMessage() {
   const input = document.getElementById('messageInput');
   const text = input.value.trim();
-  
+
   if (text) {
-    // Agregar el mensaje del usuario y guardarlo en localStorage
     messages.push({ text: text, sender: 'user' });
     localStorage.setItem('chat_messages', JSON.stringify(messages));
-    
-    // Actualizar la vista con el nuevo mensaje
     displayMessages();
     input.value = '';
-    
-    // Enviar el mensaje a Make.com
+
+    // Llamar al webhook con el texto ingresado
     sendToWebhook(text);
   }
 }
 
-// Función para borrar el historial del chat
+// Borrar todo el historial
 function clearHistory() {
   if (confirm("¿Estás seguro de borrar todo el historial de mensajes?")) {
     localStorage.removeItem('chat_messages');
@@ -89,20 +79,30 @@ function clearHistory() {
   }
 }
 
-// Función para alternar entre Dark Mode y Light Mode
+// Cambiar entre modo claro y oscuro
 function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  if (document.body.classList.contains('light-mode')) {
-    localStorage.setItem('theme', 'light');
-  } else {
-    localStorage.setItem('theme', 'dark');
-  }
+  const body = document.body;
+  body.classList.toggle('dark-mode');
+
+  // Guardar preferencia en localStorage
+  const isDark = body.classList.contains('dark-mode');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
-// Inicializar mostrando los mensajes guardados
-displayMessages();
+// Al cargar la página, aplicamos el tema que estaba guardado
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
 
-// Permitir enviar el mensaje al presionar Enter
+  // Mostrar mensajes existentes
+  displayMessages();
+});
+
+// Permitir enviar el mensaje al presionar "Enter"
 document.getElementById('messageInput').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') sendMessage();
+  if (e.key === 'Enter') {
+    sendMessage();
+  }
 });
