@@ -1,8 +1,10 @@
 /* style.css */
 
+/* ====== Estilos por defecto: Dark Mode ====== */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: #f7f9fc;
+  background: #121212; /* Fondo oscuro */
+  color: #e0e0e0;      /* Texto claro */
   margin: 0;
   display: flex;
   align-items: center;
@@ -12,9 +14,9 @@ body {
 
 .chat-container {
   width: 400px;
-  background: #ffffff;
+  background: #1e1e1e;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -24,9 +26,9 @@ body {
 .chat-header {
   display: flex;
   align-items: center;
-  background: #0084ff;
+  background: #333;
   padding: 15px;
-  color: #fff;
+  color: #e0e0e0;
 }
 
 .header-avatar {
@@ -35,7 +37,7 @@ body {
   border-radius: 50%;
   margin-right: 10px;
   object-fit: cover;
-  border: 2px solid #fff;
+  border: 2px solid #e0e0e0;
 }
 
 .chat-header h1 {
@@ -43,15 +45,35 @@ body {
   margin: 0;
 }
 
+/* Botón para cambiar tema */
+.toggle-mode-btn,
+.clear-btn {
+  margin-left: auto;
+  margin-right: 5px;
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  color: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  transition: background 0.3s ease;
+}
+
+.toggle-mode-btn:hover,
+.clear-btn:hover {
+  background: #444;
+}
+
 /* Área de mensajes */
 .messages {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: #f7f9fc;
+  background: #121212;
 }
 
-/* Contenedores de mensaje */
+/* Contenedor para cada mensaje */
 .message-container {
   display: flex;
   margin-bottom: 15px;
@@ -62,11 +84,12 @@ body {
   justify-content: flex-start;
 }
 
+/* Mensajes del usuario (alineados a la derecha) */
 .message-container.user {
   justify-content: flex-end;
 }
 
-/* Avatar en los mensajes */
+/* Avatar en los mensajes de Wizardio */
 .avatar {
   width: 40px;
   height: 40px;
@@ -86,8 +109,8 @@ body {
 
 /* Estilo para mensaje de Wizardio */
 .message-container.wizardio .message-text {
-  background: #e0e0e0;
-  color: #333;
+  background: #333;
+  color: #e0e0e0;
 }
 
 /* Estilo para mensaje del usuario */
@@ -96,20 +119,22 @@ body {
   color: #fff;
 }
 
-/* Área de entrada */
+/* Área de entrada del mensaje */
 .input-area {
   display: flex;
   padding: 15px;
-  border-top: 1px solid #ddd;
-  background: #f1f3f6;
+  border-top: 1px solid #444;
+  background: #1e1e1e;
 }
 
 .input-area input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   border-radius: 20px;
   outline: none;
+  background: #121212;
+  color: #e0e0e0;
   font-size: 1em;
 }
 
@@ -128,3 +153,49 @@ body {
 .input-area button:hover {
   background: #006bbd;
 }
+
+/* ====== Estilos para Light Mode (cuando <body> tenga la clase "light-mode") ====== */
+body.light-mode {
+  background: #f7f9fc;
+  color: #333;
+}
+
+body.light-mode .chat-container {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.light-mode .chat-header {
+  background: #0084ff;
+  color: #fff;
+}
+
+body.light-mode .header-avatar {
+  border: 2px solid #fff;
+}
+
+body.light-mode .toggle-mode-btn,
+body.light-mode .clear-btn {
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+body.light-mode .messages {
+  background: #f7f9fc;
+}
+
+body.light-mode .input-area {
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+}
+
+body.light-mode .input-area input {
+  background: #f7f9fc;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+body.light-mode .input-area button {
+  background: #0084ff;
+}
+
