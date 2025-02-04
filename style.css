@@ -1,10 +1,10 @@
 /* style.css */
 
-/* ====== Estilos por defecto: Dark Mode ====== */
+/* === MODO CLARO (por defecto) === */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: #121212; /* Fondo oscuro */
-  color: #e0e0e0;      /* Texto claro */
+  background: #f7f9fc;
+  color: #333;
   margin: 0;
   display: flex;
   align-items: center;
@@ -14,21 +14,20 @@ body {
 
 .chat-container {
   width: 400px;
-  background: #1e1e1e;
+  background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Header del chat */
 .chat-header {
   display: flex;
   align-items: center;
-  background: #333;
+  background: #0084ff;
   padding: 15px;
-  color: #e0e0e0;
+  color: #fff;
 }
 
 .header-avatar {
@@ -37,7 +36,25 @@ body {
   border-radius: 50%;
   margin-right: 10px;
   object-fit: cover;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #fff;
+}
+
+.theme-btn,
+.clear-btn {
+  margin-left: auto;
+  background: #fff;
+  border: 1px solid #fff;
+  color: #0084ff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-right: 5px;
+}
+
+.theme-btn:hover,
+.clear-btn:hover {
+  background: #eee;
 }
 
 .chat-header h1 {
@@ -45,51 +62,26 @@ body {
   margin: 0;
 }
 
-/* Botón para cambiar tema */
-.toggle-mode-btn,
-.clear-btn {
-  margin-left: auto;
-  margin-right: 5px;
-  background: transparent;
-  border: 1px solid #e0e0e0;
-  color: #e0e0e0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.8em;
-  transition: background 0.3s ease;
-}
-
-.toggle-mode-btn:hover,
-.clear-btn:hover {
-  background: #444;
-}
-
-/* Área de mensajes */
 .messages {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: #121212;
+  background: #f7f9fc;
 }
 
-/* Contenedor para cada mensaje */
 .message-container {
   display: flex;
   margin-bottom: 15px;
 }
 
-/* Mensajes de Wizardio (alineados a la izquierda, con avatar) */
 .message-container.wizardio {
   justify-content: flex-start;
 }
 
-/* Mensajes del usuario (alineados a la derecha) */
 .message-container.user {
   justify-content: flex-end;
 }
 
-/* Avatar en los mensajes de Wizardio */
 .avatar {
   width: 40px;
   height: 40px;
@@ -98,7 +90,6 @@ body {
   margin-right: 10px;
 }
 
-/* Burbujas de mensaje */
 .message-text {
   max-width: 70%;
   padding: 10px 15px;
@@ -107,34 +98,29 @@ body {
   line-height: 1.4;
 }
 
-/* Estilo para mensaje de Wizardio */
 .message-container.wizardio .message-text {
-  background: #333;
-  color: #e0e0e0;
+  background: #e0e0e0;
+  color: #333;
 }
 
-/* Estilo para mensaje del usuario */
 .message-container.user .message-text {
   background: #0084ff;
   color: #fff;
 }
 
-/* Área de entrada del mensaje */
 .input-area {
   display: flex;
   padding: 15px;
-  border-top: 1px solid #444;
-  background: #1e1e1e;
+  border-top: 1px solid #ddd;
+  background: #f1f3f6;
 }
 
 .input-area input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #444;
+  border: 1px solid #ccc;
   border-radius: 20px;
   outline: none;
-  background: #121212;
-  color: #e0e0e0;
   font-size: 1em;
 }
 
@@ -154,48 +140,46 @@ body {
   background: #006bbd;
 }
 
-/* ====== Estilos para Light Mode (cuando <body> tenga la clase "light-mode") ====== */
-body.light-mode {
-  background: #f7f9fc;
-  color: #333;
+/* === MODO OSCURO (clase que alternamos con JavaScript) === */
+body.dark-mode {
+  background: #121212; /* Fondo global */
+  color: #e0e0e0;      /* Texto principal */
 }
 
-body.light-mode .chat-container {
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+body.dark-mode .chat-container {
+  background: #1e1e1e; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-body.light-mode .chat-header {
-  background: #0084ff;
-  color: #fff;
+body.dark-mode .chat-header {
+  background: #333;
+  color: #e0e0e0;
 }
 
-body.light-mode .header-avatar {
-  border: 2px solid #fff;
+body.dark-mode .theme-btn,
+body.dark-mode .clear-btn {
+  background: #333;
+  border: 1px solid #e0e0e0;
+  color: #e0e0e0;
 }
 
-body.light-mode .toggle-mode-btn,
-body.light-mode .clear-btn {
-  border: 1px solid #fff;
-  color: #fff;
+body.dark-mode .messages {
+  background: #121212;
 }
 
-body.light-mode .messages {
-  background: #f7f9fc;
+body.dark-mode .message-container.wizardio .message-text {
+  background: #333;
+  color: #e0e0e0;
 }
 
-body.light-mode .input-area {
-  background: #ffffff;
-  border-top: 1px solid #ddd;
+body.dark-mode .input-area {
+  background: #1e1e1e;
+  border-top: 1px solid #444;
 }
 
-body.light-mode .input-area input {
-  background: #f7f9fc;
-  color: #333;
-  border: 1px solid #ccc;
-}
-
-body.light-mode .input-area button {
-  background: #0084ff;
+body.dark-mode .input-area input {
+  background: #121212;
+  border: 1px solid #444;
+  color: #e0e0e0;
 }
 
