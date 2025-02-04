@@ -15,7 +15,7 @@ function displayMessages() {
 // Función para enviar el mensaje al webhook de Make.com
 async function sendToWebhook(message) {
   try {
-    const response = await fetch('TU_URL_DE_MAKE_WEBHOOK', {  // Reemplaza TU_URL_DE_MAKE_WEBHOOK por la URL real
+    const response = await fetch('https://hook.us1.make.com/43vq126gqt9cd77t23sw3dss1stcrqr9', {  // Reemplaza TU_URL_DE_MAKE_WEBHOOK por la URL real
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
