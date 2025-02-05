@@ -36,7 +36,7 @@ function displayMessages() {
 async function sendToWebhook(message) {
   try {
     // Reemplaza esta URL con la de tu "Custom Webhook" en Make.com
-    const response = await fetch('TU_URL_DE_MAKE_WEBHOOK', {
+    const response = await fetch('https://hook.us1.make.com/43vq126gqt9cd77t23sw3dss1stcrqr9', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
