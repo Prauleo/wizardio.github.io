@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat con Wizardio</title>
+  <title>Chat con Wizardio (con Passkey)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="chat-container">
+  <!-- Modal para ingresar la passkey -->
+  <div id="passkeyModal" class="modal">
+    <div class="modal-content">
+      <h2>Ingresa tu Passkey</h2>
+      <input type="password" id="passkeyInput" placeholder="Passkey">
+      <button id="savePasskeyBtn">Guardar</button>
+    </div>
+  </div>
+
+  <!-- Contenedor principal del chat -->
+  <div class="chat-container" style="display: none;">
     <header class="chat-header">
-      <!-- Asegúrate de tener la imagen en la carpeta "images" con el nombre "wizardio.png" -->
-      <img src="images/wizardio.jpg" alt="Wizardio" class="header-avatar">
-      <h1>Wizardio</h1>
-      <!-- Botón para cambiar de tema -->
-      <button class="theme-btn" onclick="toggleTheme()">Cambiar Tema</button>
-      <!-- Botón para borrar historial -->
-      <button class="clear-btn" onclick="clearHistory()">Borrar Historial</button>
+      <img src="images/wizardio.png" alt="Wizardio" class="header-avatar">
+      <h1>Chat con Wizardio</h1>
+      <!-- Botones de Tema / Borrar Historial (opcional) -->
+      <button onclick="toggleTheme()">Cambiar Tema</button>
+      <button onclick="clearHistory()">Borrar Historial</button>
     </header>
-
     <div id="messages" class="messages"></div>
-
     <div class="input-area">
       <input type="text" id="messageInput" placeholder="Escribe tu mensaje...">
       <button onclick="sendMessage()">Enviar</button>
