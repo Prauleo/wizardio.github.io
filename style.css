@@ -1,47 +1,6 @@
 /* style.css */
 
-/* Modal base */
-.modal {
-  position: fixed;
-  top: 0; 
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;   
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0.5); /* Fondo semi-transparente */
-}
-
-.modal-content {
-  background: #fff;
-  padding: 20px 30px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.modal-content input {
-  margin: 10px 0;
-  padding: 10px;
-  width: 100%;
-}
-
-.modal-content button {
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-/* Ocultar el contenedor principal del chat hasta que se valide la passkey */
-.chat-container {
-  /* Resto de estilos que tengas */
-}
-
-
-/* === MODO CLARO (por defecto) === */
+/* ========== ESTILOS GENERALES ========== */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: #f7f9fc;
@@ -80,9 +39,15 @@ body {
   border: 2px solid #fff;
 }
 
-.theme-btn,
-.clear-btn {
+.chat-header h1 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+/* Botones en el header */
+.chat-header button {
   margin-left: auto;
+  margin-right: 5px;
   background: #fff;
   border: 1px solid #fff;
   color: #0084ff;
@@ -90,17 +55,10 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.8em;
-  margin-right: 5px;
 }
 
-.theme-btn:hover,
-.clear-btn:hover {
+.chat-header button:hover {
   background: #eee;
-}
-
-.chat-header h1 {
-  font-size: 1.2em;
-  margin: 0;
 }
 
 .messages {
@@ -181,14 +139,14 @@ body {
   background: #006bbd;
 }
 
-/* === MODO OSCURO (clase que alternamos con JavaScript) === */
+/* ========== MODO OSCURO ========== */
 body.dark-mode {
-  background: #121212; /* Fondo global */
-  color: #e0e0e0;      /* Texto principal */
+  background: #121212;
+  color: #e0e0e0;
 }
 
 body.dark-mode .chat-container {
-  background: #1e1e1e; 
+  background: #1e1e1e;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
@@ -197,8 +155,7 @@ body.dark-mode .chat-header {
   color: #e0e0e0;
 }
 
-body.dark-mode .theme-btn,
-body.dark-mode .clear-btn {
+body.dark-mode .chat-header button {
   background: #333;
   border: 1px solid #e0e0e0;
   color: #e0e0e0;
@@ -222,5 +179,41 @@ body.dark-mode .input-area input {
   background: #121212;
   border: 1px solid #444;
   color: #e0e0e0;
+}
+
+/* ========== MODAL (Passkey) ========== */
+.modal {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;   
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5); /* Fondo semi-transparente */
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
