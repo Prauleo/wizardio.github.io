@@ -1,9 +1,14 @@
 // chat.js
 
+// Variable global para almacenar la passkey. También se guardará en localStorage.
+let passkey = localStorage.getItem('passkey') || '';
+
 // Cargar mensajes guardados en el localStorage (con sender)
 let messages = JSON.parse(localStorage.getItem('chat_messages')) || [];
 
-// Mostrar los mensajes en el contenedor
+/**
+ * Mostrar los mensajes en el contenedor
+ */
 function displayMessages() {
   const container = document.getElementById('messages');
   container.innerHTML = messages.map(msg => {
@@ -25,26 +30,28 @@ function displayMessages() {
   container.scrollTop = container.scrollHeight; // Auto-scroll
 }
 
-// Enviar el mensaje al webhook de Make.com
+/**
+ * Función para enviar el mensaje al webhook de Make.com
+ */
 async function sendToWebhook(message) {
   try {
-    // Reemplaza esta URL con la que te da Make.com
-    const response = await fetch('https://hook.us1.make.com/43vq126gqt9cd77t23sw3dss1stcrqr9', {
+    // Reemplaza esta URL con la de tu "Custom Webhook" en Make.com
+    const response = await fetch('TU_URL_DE_MAKE_WEBHOOK', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: message,
+        passkey: passkey,    // <-- Agregamos la passkey
         timestamp: new Date().toISOString()
       })
     });
 
     if (!response.ok) throw new Error('Error en el webhook');
     
-    // Si el webhook responde algo, lo usamos como texto de Wizardio
     const data = await response.json();
     console.log('Respuesta del webhook:', data);
 
-    // Mensaje de Wizardio (o lo que retorne tu webhook)
+    // Mensaje de Wizardio
     const wizardResponse = data.response || 'Mensaje recibido por Wizardio';
     messages.push({ text: wizardResponse, sender: 'wizardio' });
     localStorage.setItem('chat_messages', JSON.stringify(messages));
@@ -54,7 +61,9 @@ async function sendToWebhook(message) {
   }
 }
 
-// Enviar un mensaje escrito por el usuario
+/**
+ * Enviar un mensaje escrito por el usuario
+ */
 function sendMessage() {
   const input = document.getElementById('messageInput');
   const text = input.value.trim();
@@ -70,7 +79,9 @@ function sendMessage() {
   }
 }
 
-// Borrar todo el historial
+/**
+ * Borrar todo el historial
+ */
 function clearHistory() {
   if (confirm("¿Estás seguro de borrar todo el historial de mensajes?")) {
     localStorage.removeItem('chat_messages');
@@ -79,22 +90,53 @@ function clearHistory() {
   }
 }
 
-// Cambiar entre modo claro y oscuro
+/**
+ * Alternar tema oscuro/claro (si lo implementaste)
+ */
 function toggleTheme() {
   const body = document.body;
   body.classList.toggle('dark-mode');
-
-  // Guardar preferencia en localStorage
   const isDark = body.classList.contains('dark-mode');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
-// Al cargar la página, aplicamos el tema que estaba guardado
+/**
+ * Guardar la passkey en localStorage y cerrar el modal
+ */
+function savePasskey() {
+  const input = document.getElementById('passkeyInput');
+  passkey = input.value.trim();
+  if (!passkey) {
+    alert("Ingresa una passkey válida.");
+    return;
+  }
+  localStorage.setItem('passkey', passkey);
+  
+  // Ocultar el modal y mostrar el chat
+  document.getElementById('passkeyModal').style.display = 'none';
+  document.querySelector('.chat-container').style.display = 'flex';
+}
+
+/**
+ * Al cargar la página
+ */
 document.addEventListener('DOMContentLoaded', () => {
+  // Revisar si ya había un tema guardado
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     document.body.classList.add('dark-mode');
   }
+
+  // Si no hay passkey en localStorage, mostramos el modal
+  if (!passkey) {
+    document.getElementById('passkeyModal').style.display = 'flex';
+  } else {
+    // Ya tenemos passkey, mostrar el chat directamente
+    document.querySelector('.chat-container').style.display = 'flex';
+  }
+
+  // Botón de guardar passkey
+  document.getElementById('savePasskeyBtn').addEventListener('click', savePasskey);
 
   // Mostrar mensajes existentes
   displayMessages();
