@@ -16,16 +16,19 @@
     </div>
   </div>
 
-  <!-- Contenedor principal del chat -->
+  <!-- Contenedor principal del chat (inicialmente oculto) -->
   <div class="chat-container" style="display: none;">
     <header class="chat-header">
+      <!-- Asegúrate de tener la imagen wizardio.jpg en la carpeta "images" -->
       <img src="images/wizardio.jpg" alt="Wizardio" class="header-avatar">
       <h1>Chat con Wizardio</h1>
-      <!-- Botones de Tema / Borrar Historial (opcional) -->
+      <!-- Botones para modo oscuro/claro y para borrar historial -->
       <button onclick="toggleTheme()">Cambiar Tema</button>
       <button onclick="clearHistory()">Borrar Historial</button>
     </header>
+
     <div id="messages" class="messages"></div>
+
     <div class="input-area">
       <input type="text" id="messageInput" placeholder="Escribe tu mensaje...">
       <button onclick="sendMessage()">Enviar</button>
