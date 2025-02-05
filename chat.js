@@ -1,6 +1,6 @@
 // chat.js
 
-// Variable global para almacenar la passkey. También se guardará en localStorage.
+// Variable global para la passkey (si no hay en localStorage, estará vacía)
 let passkey = localStorage.getItem('passkey') || '';
 
 // Cargar mensajes guardados en el localStorage (con sender)
@@ -15,7 +15,7 @@ function displayMessages() {
     if (msg.sender === 'wizardio') {
       return `
         <div class="message-container wizardio">
-          <img src="images/wizardio.png" alt="Wizardio" class="avatar">
+          <img src="images/wizardio.jpg" alt="Wizardio" class="avatar">
           <div class="message-text">${msg.text}</div>
         </div>
       `;
@@ -35,13 +35,13 @@ function displayMessages() {
  */
 async function sendToWebhook(message) {
   try {
-    // Reemplaza esta URL con la de tu "Custom Webhook" en Make.com
+    // URL fija que solicitaste: tu custom webhook
     const response = await fetch('https://hook.us1.make.com/43vq126gqt9cd77t23sw3dss1stcrqr9', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: message,
-        passkey: passkey,    // <-- Agregamos la passkey
+        passkey: passkey,    // Se envía la passkey (si no hay filtro, no pasa nada)
         timestamp: new Date().toISOString()
       })
     });
@@ -91,7 +91,7 @@ function clearHistory() {
 }
 
 /**
- * Alternar tema oscuro/claro (si lo implementaste)
+ * Alternar tema oscuro/claro
  */
 function toggleTheme() {
   const body = document.body;
