@@ -1,5 +1,46 @@
 /* style.css */
 
+/* Modal base */
+.modal {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;   
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5); /* Fondo semi-transparente */
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Ocultar el contenedor principal del chat hasta que se valide la passkey */
+.chat-container {
+  /* Resto de estilos que tengas */
+}
+
+
 /* === MODO CLARO (por defecto) === */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
